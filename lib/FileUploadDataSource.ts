@@ -54,8 +54,8 @@ const addChunkedDataToForm: AddDataHandler = (
 const addDataToForm: AddDataHandler = (
   form: FormData,
   resolvedFiles: FileUpload[],
-): Promise<void[]> => {
-  return Promise.all(
+): Promise<void[]> =>
+  Promise.all(
     resolvedFiles.map(
       async (
         { createReadStream, filename, mimetype: contentType },
@@ -80,7 +80,6 @@ const addDataToForm: AddDataHandler = (
       },
     ),
   );
-};
 
 export default class FileUploadDataSource extends RemoteGraphQLDataSource {
   private static extractFileVariables(
