@@ -512,7 +512,7 @@
 					"formdata": [
 						{
 							"key": "operations",
-							"value": "{\"query\": \"mutation InputWithUploadArray($input: InputWithUploadArray!, $input2: [NestedInput!]!) {inputWithUploadArray(input: $input, input2: $input2) {filename,mimetype,encoding,content}}\", \"variables\": {\"input2\": [{\"str\": \"str\", \"nested\": {\"str\": \"nested str\"}}], \"input\": {\"str\": \"a string\"}}}",
+							"value": "{\"query\": \"mutation InputWithUploadArray($input: InputWithUploadArray!, $input2: [NestedInput!]!) {inputWithUploadArray(input: $input, input2: $input2) {filename,mimetype,encoding,content}}\", \"variables\": {\"input2\": [{\"str\": \"str\", \"nested\": {\"str\": \"nested str\", \"f\": null}}], \"input\": {\"str\": \"a string\", \"files\": []}}}",
 							"type": "text"
 						},
 						{
@@ -586,7 +586,7 @@
 					"formdata": [
 						{
 							"key": "operations",
-							"value": "{\"query\": \"mutation InputWithUploadArrayChunked($input: InputWithUploadArrayChunked!, $input2: [NestedInputChunked!]!) {inputWithUploadArrayChunked(input: $input, input2: $input2) {filename,mimetype,encoding,content}}\", \"variables\": {\"input2\": [{\"str\": \"str\", \"nested\": {\"str\": \"nested str\"}}], \"input\": {\"str\": \"a string\"}}}",
+							"value": "{\"query\": \"mutation InputWithUploadArrayChunked($input: InputWithUploadArrayChunked!, $input2: [NestedInputChunked!]!) {inputWithUploadArrayChunked(input: $input, input2: $input2) {filename,mimetype,encoding,content}}\", \"variables\": {\"input2\": [{\"str\": \"str\", \"nested\": {\"str\": \"nested str\", \"f\": null}}], \"input\": {\"str\": \"a string\", \"files\": []}}}",
 							"type": "text"
 						},
 						{

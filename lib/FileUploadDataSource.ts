@@ -3,7 +3,7 @@ import {
   RemoteGraphQLDataSource,
 } from '@apollo/gateway';
 import { GraphQLResponse } from 'apollo-server-types';
-import { FileUpload, Upload } from 'graphql-upload';
+import { FileUpload, Upload } from 'graphql-upload-minimal';
 import { Request, Headers, Response } from 'apollo-server-env';
 import { isObject } from '@apollo/gateway/dist/utilities/predicates';
 import cloneDeep from 'lodash.clonedeep';
