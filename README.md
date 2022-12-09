@@ -1,5 +1,7 @@
 # Apollo Federation file upload
 
+This is a minimally changed fork of [`apollo-federation-file-upload`](https://github.com/profusion/apollo-federation-file-upload) configured to use [`graphql-upload-minimal`](https://github.com/flash-oss/graphql-upload-minimal) instead of [`graphql-upload`](https://github.com/jaydenseric/graphql-upload).
+
 This library makes it easier to support file uploads to your federated
 micro-services. It uses the [Apollo](https://www.apollographql.com/docs/apollo-server/data/file-uploads/) server's solution.
 It works by simply redirecting the file uploaded stream to the micro-service.

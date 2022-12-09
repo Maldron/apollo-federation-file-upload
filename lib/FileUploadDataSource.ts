@@ -33,11 +33,8 @@ const addChunkedDataToForm: AddDataHandler = (
   form: FormData,
   resolvedFiles: FileUpload[],
 ): Promise<void> => {
-  console.log('ADDING CHUNKED FILES');
-  // Okay we get to at least here before things stall.
   resolvedFiles.forEach(
     ({ createReadStream, filename, mimetype: contentType }, i: number) => {
-      console.log(`IN forEach callback FOR FILE ${i}`);
       form.append(i.toString(), createReadStream(), {
         contentType,
         filename,
@@ -49,10 +46,8 @@ const addChunkedDataToForm: AddDataHandler = (
         */
         knownLength: Number.NaN,
       });
-      console.log('END OF forEach callback');
     },
   );
-  console.log('END OF addChunkedDataToForm');
   return Promise.resolve();
 };
 
@@ -60,14 +55,12 @@ const addDataToForm: AddDataHandler = (
   form: FormData,
   resolvedFiles: FileUpload[],
 ): Promise<void[]> => {
-  console.log('ADDING FILES');
   return Promise.all(
     resolvedFiles.map(
       async (
         { createReadStream, filename, mimetype: contentType },
         i: number,
       ): Promise<void> => {
-        console.log('MAPPING A FILE');
         const fileData = await new Promise<Buffer>((resolve, reject) => {
           const stream = createReadStream();
           const buffers: Buffer[] = [];
@@ -79,7 +72,6 @@ const addDataToForm: AddDataHandler = (
             resolve(Buffer.concat(buffers));
           });
         });
-        console.log('GOT FILE DATA');
         form.append(i.toString(), fileData, {
           contentType,
           filename,
@@ -188,39 +180,28 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
 
     const fileMap: { [key: string]: string[] } = {};
 
-    console.log('GOING TO RESOLVE FILES');
     const resolvedFiles: FileUpload[] = await Promise.all(
       fileVariables.map(
         async (
           [variableName, file]: FileVariablesTuple,
           i: number,
         ): Promise<FileUpload> => {
-          console.log('AWAITING FILE');
-          console.log(file);
           const fileUpload: FileUpload = await file;
-          console.log('FINISHED AWAITING FILE');
-          console.log(fileUpload);
           fileMap[i] = [`variables.${variableName}`];
           return fileUpload;
         },
       ),
     );
-    console.log('AWAITED ALL FILES');
 
     // This must come before the file contents append bellow
     form.append('map', JSON.stringify(fileMap));
-    console.log('ADDED MAP TO FORMDATA');
-    console.log(form);
     await this.addDataHandler(form, resolvedFiles);
-    console.log('AWAITED addDataHandler');
 
     const headers = (request.http && request.http.headers) || new Headers();
 
     Object.entries(form.getHeaders() || {}).forEach(([k, value]) => {
       headers.set(k, value);
     });
-    console.log('HEADERS SET');
-    console.log(headers);
 
     request.http = {
       headers,
@@ -229,9 +210,7 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
     };
 
     if (this.willSendRequest) {
-      console.log('willSendRequest IS TRUE, WILL AWAIT');
       await this.willSendRequest(args);
-      console.log('AWAITED willSendRequest');
     }
 
     const options = {
@@ -245,10 +224,8 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
     let httpResponse: Response | undefined;
 
     try {
-      console.log('WILL AWAIT fetcher');
       httpResponse = await this.fetcher(request.http.url, options);
 
-      console.log('AWAITED fetcher. WILL AWAIT parseBody');
       const body = await this.parseBody(httpResponse);
 
       if (!isObject(body)) {

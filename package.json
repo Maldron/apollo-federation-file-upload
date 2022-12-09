@@ -1,9 +1,9 @@
 {
-  "name": "@profusion/apollo-federation-upload",
-  "version": "4.0.0",
+  "name": "@agrian-inc/apollo-federation-upload-minimal",
+  "version": "1.0.0",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
-  "author": "Guilherme Iscaro (iscaro@profusion.mobi)",
+  "author": "Nicholas Smillie (nicholas.smillie@agrian.com)",
   "repository": "https://github.com/profusion/apollo-federation-file-upload",
   "license": "MIT",
   "keywords": [
