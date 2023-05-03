@@ -3,8 +3,8 @@ import {
   RemoteGraphQLDataSource,
 } from '@apollo/gateway';
 import { GraphQLResponse } from 'apollo-server-types';
-import { FileUpload, Upload } from 'graphql-upload-minimal';
-import { Request, Headers, Response } from 'apollo-server-env';
+import { FileUpload, Upload } from 'graphql-upload';
+import { Request, Response } from 'apollo-server-env';
 import { isObject } from '@apollo/gateway/dist/utilities/predicates';
 import cloneDeep from 'lodash.clonedeep';
 import set from 'lodash.set';
@@ -196,11 +196,16 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
     form.append('map', JSON.stringify(fileMap));
     await this.addDataHandler(form, resolvedFiles);
 
-    const headers = (request.http && request.http.headers) || new Headers();
+    // const headers = (request.http && request.http.headers) || new Headers();
+    const headers = {
+      ...Object.fromEntries(request?.http?.headers || []),
+      ...form.getHeaders(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any;
 
-    Object.entries(form.getHeaders() || {}).forEach(([k, value]) => {
-      headers.set(k, value);
-    });
+    // Object.entries(form.getHeaders() || {}).forEach(([k, value]) => {
+    //   headers.set(k, value);
+    // });
 
     request.http = {
       headers,
@@ -219,11 +224,13 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
       headers: Object.fromEntries(request.http.headers),
     };
 
-    const httpRequest = new Request(request.http.url, options);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const httpRequest = new Request(request.http!.url, options);
     let httpResponse: Response | undefined;
 
     try {
-      httpResponse = await this.fetcher(request.http.url, options);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
+      httpResponse = await this.fetcher(request.http!.url, options as any);
 
       const body = await this.parseBody(httpResponse);
 
@@ -241,7 +248,8 @@ export default class FileUploadDataSource extends RemoteGraphQLDataSource {
 
       return response;
     } catch (error) {
-      this.didEncounterError(error as Error, httpRequest, httpResponse);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.didEncounterError(error as Error, httpRequest as any, httpResponse);
       throw error;
     }
   }

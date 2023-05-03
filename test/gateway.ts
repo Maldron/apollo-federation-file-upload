@@ -5,7 +5,7 @@ import {
   ApolloServerPluginLandingPageDisabled,
 } from 'apollo-server-core';
 import express from 'express';
-import { graphqlUploadExpress } from 'graphql-upload-minimal';
+import { graphqlUploadExpress } from 'graphql-upload';
 import http from 'http';
 
 import FileUploadDataSource from '../lib';

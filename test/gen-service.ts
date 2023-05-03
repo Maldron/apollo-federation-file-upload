@@ -4,7 +4,7 @@ import {
   FileUpload,
   graphqlUploadExpress,
   GraphQLUpload,
-} from 'graphql-upload-minimal';
+} from 'graphql-upload';
 import { GraphQLResolverMap } from 'apollo-graphql';
 import {
   ApolloServerPluginInlineTraceDisabled,
