@@ -1,3 +1,7 @@
+# Archived 7/18/23
+
+We are moving away from supporting file uploads in GraphQL requests, based on our experiences and [best practices recommended by Apollo](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/).
+
 # Apollo Federation file upload
 
 This is a minimally changed fork of [`apollo-federation-file-upload`](https://github.com/profusion/apollo-federation-file-upload) configured to use [`graphql-upload-minimal`](https://github.com/flash-oss/graphql-upload-minimal) instead of [`graphql-upload`](https://github.com/jaydenseric/graphql-upload).
